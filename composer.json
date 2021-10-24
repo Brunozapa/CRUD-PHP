@@ -1,0 +1,10 @@
+{
+    "name": "zapa/login_php",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+             "App\\": "app/"
+         }
+      }
+     
+}
