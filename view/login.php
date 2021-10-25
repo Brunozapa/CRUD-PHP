@@ -18,12 +18,12 @@
 
 <body>
     <div class="container-login">
-        <form action="..\login.php">
+        <form action="..\login.php" method="post">
             <h3>Login</h3>
-            <input name="login" type="text" placeholder="email">
+            <input name="email" type="text" placeholder="email">
             <input name="senha" type="password" placeholder="senha">
             <button type="submit">login</button>
-            <span><a href="cadastro.html">cadastra-se</a></span>
+            <span><a href="cadastro.php">cadastra-se</a></span>
         </form>
     </div>
 </body>

@@ -9,4 +9,4 @@ use App\Model\Usuario;
 //$t = new Connection();
 
 $t = new Usuario();
-$t->autenticarUsuario('admin','1234');
+$t->cadastrarUsuario(array('bruno','1234'));

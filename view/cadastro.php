@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,11 +21,12 @@
 
 <body>
     <div class="container-cadastro">
-        <form action="">
+        <form action="..\cadastro.php" method="post">
             <h3>Cadastro</h3>
-            <input type="text" placeholder="email">
-            <input type="text" placeholder="senha">
-            <button>Cadastrar</button>
+            <input name="nome" type="text" placeholder="nome">
+            <input name="email" type="text" placeholder="email">
+            <input name="senha" type="senha" placeholder="senha">
+            <button type="submit">Cadastrar</button>
         </form>
     </div>
 </body>

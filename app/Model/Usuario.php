@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use App\database\Connection;
-
+use PDO;
 class Usuario{
     
     private $idUsuario;
@@ -15,12 +15,12 @@ class Usuario{
         $this->conn = new Connection();
     }
 
-    public function autenticarUsuario(string $login, string $senha)
+    public function autenticarUsuario(array $params)
     {
-        $params = array($login, $senha);
+        var_dump($params);
         try{
 
-            $query = "SELECT idUsuario, login, senha FROM usuario WHERE login = ? AND senha = ?";
+            $query = "SELECT idUsuario, nome, email, senha FROM usuario WHERE email = ? AND senha = ?";
             $stmt = $this->conn->setConn()->prepare($query);
             $stmt->execute($params);
 
@@ -29,22 +29,54 @@ class Usuario{
                 header('Location: login.php');
                 die();
             }
-            echo "deu bom";
             $user = $stmt->fetch();
-            session_start();
+            //session_start();
             $_SESSION['usuario'] = $user['idUsuario'];
-            //header('Location: home.php');
-            echo "aa";
+            header('Location: view\home.php');
+            echo "deu bom";
+        } catch(PDOException $e){
+            die('ERRO: '.$e->getMessage());
+        }
+    }
+
+    public function cadastrarUsuario(array $params)
+    {
+        var_dump($params);
+        $caio = array($params['email'], $params['senha']);
+        var_dump($caio);
+        try{
+            $query = "SELECT idUsuario, nome, email, senha FROM usuario WHERE email = :email AND senha = :senha";
+            $stmt = $this->conn->setConn()->prepare($query);
+            $stmt->bindParam(":email", $caio['email'], PDO::PARAM_STR);
+            $stmt->bindParam(":senha", $caio['senha'], PDO::PARAM_STR);
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0){
+                echo "já existe esse usuario";
+                die();
+            }
+
+            $query = "INSERT INTO usuario VALUES (NULL,:nome,:email,:senha)";
+            $stmt = $this->conn->setConn()->prepare($query);
+            $stmt->bindParam(":nome", $params['nome'], PDO::PARAM_STR);
+            $stmt->bindParam(":email", $params['email'], PDO::PARAM_STR);
+            $stmt->bindParam(":senha", $params['senha'], PDO::PARAM_STR);
+
+            if($stmt->execute()){
+
+                header('Location: view\login.php');
+                return "cadastrado com sucesso";
+            }
+
+            echo "deu ruim.";
+            header('Location: cadastro.php');
+            return "falha ao cadastrar";
 
         } catch(PDOException $e){
             die('ERRO: '.$e->getMessage());
         }
-//        if(!$user){
-//            echo "deu ruim.".die();
-//        }
-//        echo "deu bom";
-//        $user = $result->fetch();
-//        session_start();
-//        $_SESSION['usuario'] = $user['idUsuario'];
     }
+
+
+
 }

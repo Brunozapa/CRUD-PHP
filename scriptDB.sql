@@ -4,10 +4,15 @@ use php_login;
 
 create table usuario (
     idUsuario int primary key auto_increment,
-    login varchar(45),
+    nome varchar(45),
+    email varchar(45),
     senha varchar(45)
 );
+insert into usuario values (null, 'administrador','admin', '1234');
 
-insert into usuario values (null, 'admin', '1234');
+select idUsuario, login, senha FROM usuario WHERE login = "admin" AND senha = "1234";
 
-SELECT login, senha FROM usuario WHERE login = "admin" AND senha = "1234";
+select * from usuario;
+
+
+d
