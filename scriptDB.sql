@@ -3,7 +3,7 @@ create database php_login;
 use php_login;
 
 create table usuario (
-    idLogin int primary key auto_increment,
+    idUsuario int primary key auto_increment,
     login varchar(45),
     senha varchar(45)
 );

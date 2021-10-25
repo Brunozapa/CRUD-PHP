@@ -19,12 +19,4 @@ class AutenticaUsuario
         $this->autenticacao();
     }
 
-    private function autenticacao()
-    {
-        $query = "SELECT idUsuario, login, senha FROM usuario WHERE login = ? AND senha = ?";
-        $conn = new Connection();
-        $conn->execute($query,array($this->login, $this->senha));
-
-        
-    }
 }

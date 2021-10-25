@@ -11,7 +11,7 @@ class Connection
 {
     const HOST = '127.0.0.1';
     const USER = 'root';
-    const SENHA = 'Laz260165';
+    const SENHA = 'Mysql123';
     const DB = 'php_login';
 
     private $conn;
@@ -21,12 +21,13 @@ class Connection
         $this->setConn();
     }
 
-    private function setConn()
+    public function setConn()
     {
         try{
             $this->conn = new PDO("mysql:host=".self::HOST. ";dbname=".self::DB, self::USER, self::SENHA); 
             $this->conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
             echo "Conexão feita com sucessso!" . PHP_EOL;
+            return $this->conn;
         } catch(PDOException $e){
             die("ERRO: ".$e->getMessage());
         }
@@ -45,15 +46,12 @@ class Connection
         
     }
 
-    public function execute(string $query, array $params)
+    public function executar(string $query, array $params)
     {
         try{           
             $stmt = $this->conn->prepare($query);
             $stmt->execute($params);
-            $fetchUsuarios = $stmt->fetchAll();
-            foreach($fetchUsuarios as $key => $values){
-                echo $values['idUsuario']. PHP_EOL . $values['login'] . PHP_EOL . $values['senha'] . PHP_EOL;
-            }
+            var_dump($stmt);
             return $stmt;
         } catch(PDOException $e){
             die('ERRO: '.$e->getMessage());
