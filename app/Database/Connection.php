@@ -5,13 +5,12 @@ namespace App\database;
 use PDO;
 use PDOException;
 
-//use Mysqli; // arruma a ambiquidade em "new mysqli" causada pelo namespace
-
 class Connection
 {
     const HOST = '127.0.0.1';
     const USER = 'root';
-    const SENHA = 'Mysql123';
+    const SENHA = 'Laz260165';
+//    const SENHA = 'Mysql123';
     const DB = 'php_login';
 
     private $conn;
@@ -31,14 +30,6 @@ class Connection
         } catch(PDOException $e){
             die("ERRO: ".$e->getMessage());
         }
-
-        /*
-        $this->conn = new \mysqli(self::HOST, self::USER, self::SENHA, self::DB);
-        if ($this->conn->connect_error) {
-            die('Connect Error (' . $this->conn->connect_errno . ') ' . $this->conn->connect_error);
-        }
-        echo $this->conn->host_info; 
-        */
     }
     
     public function stopConn()

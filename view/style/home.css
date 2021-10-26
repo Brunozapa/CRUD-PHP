@@ -1,8 +1,9 @@
 .tabela-produtos {
     margin: auto;
+    max-width: 1200px;
 }
 
 table thead{
-    background-color: crimson;
+    background-color: rgb(182, 17, 50);
     border: 1px solid;
 }

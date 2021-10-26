@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\database\Connection;
 use PDO;
+use PDOException;
 class Loja{
     
     private $idUsuario;
@@ -15,7 +16,7 @@ class Loja{
         $this->conn = new Connection();
     }
 
-    public function autenticarUsuario(array $params)
+    public function autenticarLoja(array $params)
     {
         var_dump($params);
         try{
@@ -39,7 +40,7 @@ class Loja{
         }
     }
 
-    public function cadastrarUsuario(array $params)
+    public function cadastrarLoja(array $params)
     {
         var_dump($params);
         $paramAuxiliar = array($params['email'], $params['senha']);
@@ -74,7 +75,4 @@ class Loja{
             die('ERRO: '.$e->getMessage());
         }
     }
-
-
-
 }
