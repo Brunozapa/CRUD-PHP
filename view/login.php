@@ -4,26 +4,17 @@
 
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="style\login-cadastro.css">
 </head>
-<style>
-    .container-login {
-        margin: auto;
-        width: 200px;
-    }
-
-    .container-login input {
-        margin-bottom: 10px;
-    }
-</style>
 
 <body>
-    <div class="container-login">
+    <div class="container">
         <form action="..\login.php" method="post">
-            <h3>Login</h3>
+            <h2>Login</h2>
             <input name="email" type="text" placeholder="email">
             <input name="senha" type="password" placeholder="senha">
             <button type="submit">login</button>
-            <span><a href="cadastro.php">cadastra-se</a></span>
+            <span><a href="cadastro.php">cadastre-se</a></span>
         </form>
     </div>
 </body>

@@ -1,10 +1,10 @@
 <?php
 
-use App\Model\Usuario;
+use App\Model\Loja;
 
 require_once 'vendor/autoload.php';
 
-$usuario = new Usuario();
+$usuario = new Loja();
 
 
 header('Location: view\login.php');

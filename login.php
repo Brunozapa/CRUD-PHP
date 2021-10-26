@@ -1,9 +1,9 @@
 <?php
 require 'vendor\autoload.php';
 
-use App\Model\Usuario;
+use App\Model\Loja;
 
 include ('view\login.php');
 
-$usuario = new Usuario();
+$usuario = new Loja();
 $usuario->autenticarUsuario(array($_POST['email'],$_POST['senha']));

@@ -1,9 +1,9 @@
 <?php
 require 'vendor\autoload.php';
 
-use App\Model\Usuario;
+use App\Model\Loja;
 
 include ('view/cadastro.php');
 
-$usuario = new Usuario();
+$usuario = new Loja();
 $usuario->cadastrarUsuario($_POST);

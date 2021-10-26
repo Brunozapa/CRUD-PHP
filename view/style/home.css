@@ -1,0 +1,8 @@
+.tabela-produtos {
+    margin: auto;
+}
+
+table thead{
+    background-color: crimson;
+    border: 1px solid;
+}
