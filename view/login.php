@@ -1,4 +1,7 @@
-<?php session_start() ?>
+<?php
+include('../app/Controller/verificaLogin.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,14 +11,17 @@
 </head>
 
 <body>
-    <div class="container">
-        <form action="..\login.php" method="post">
+    <div class="container-lg">
+        <form action="/app/Controller/login.php" method="post">
             <h2>Login</h2>
-            <input name="email" type="text" placeholder="email">
-            <input name="senha" type="password" placeholder="senha">
+            <input name="email" type="text" placeholder="email" required>
+            <input name="senha" type="password" placeholder="senha" required>
             <button type="submit">login</button>
             <span><a href="cadastro.php">cadastre-se</a></span>
         </form>
+        <div class="erro_msg">
+            <p>Mensagem de erro</p>
+        </div>
     </div>
 </body>
 

@@ -24,16 +24,19 @@ class Produto
     public function adicionarProduto(array $params)
     {
         try {
-            $query = "INSERT INTO produto VALUES (null, ?, ?, ?, ?)";
+            $query = "INSERT INTO produto VALUES (null, :nome, :quant, :preco, 1)";
             $stmt = $this->conn->setConn()->prepare($query);
+            $stmt->bindParam(':nome', $params['nome'], PDO::PARAM_STR);
+            $stmt->bindParam(':quant', $params['estoque'], PDO::PARAM_INT);
+            $stmt->bindParam(':preco', $params['preco'], PDO::PARAM_STR);
 
-            if ($stmt->execute($params)) {
-                die("inserido!");
+            if ($stmt->execute()) {
+                header('Location: ../../view/home.php');
             }
 
-            dir("não inseriu");
+            die("não inseriu");
         } catch (PDOException $e) {
-            dir("ERRO: " . $e->getMessage());
+            die("ERRO: " . $e->getMessage());
         }
     }
     public function deletarProduto(int $idProduto)
@@ -47,9 +50,9 @@ class Produto
                 die("deletou!");
             }
 
-            dir("não deletou");
+            die("não deletou");
         } catch (PDOException $e) {
-            dir("ERRO: " . $e->getMessage());
+            die("ERRO: " . $e->getMessage());
         }
     }
 }

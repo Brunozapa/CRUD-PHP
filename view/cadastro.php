@@ -11,8 +11,8 @@
 </head>
 
 <body>
-    <div class="container">
-        <form action="..\cadastro.php" method="post">
+    <div class="container-lg">
+        <form action="/app/Controller/cadastro.php" method="post">
             <h3>Cadastro</h3>
             <input name="nome" type="text" placeholder="nome">
             <input name="email" type="text" placeholder="email">
