@@ -59,8 +59,8 @@ class Loja
             $stmt->bindParam(":senha", $params['senha'], PDO::PARAM_STR);
 
             if ($stmt->execute()) {
-
-                header('Location: ../../view/login.php');
+                echo "execute";
+                header('Location: ../../view/login.php'); die();
             }
 
             header('Location: ../../view/cadastro.php');

@@ -9,8 +9,8 @@ class Connection
 {
     const HOST = '127.0.0.1';
     const USER = 'root';
-    const SENHA = 'Laz260165';
-//    const SENHA = 'Mysql123';
+    //const SENHA = 'Laz260165';
+    const SENHA = 'Mysql123';
     const DB = 'php_login';
 
     private $conn;
@@ -25,18 +25,11 @@ class Connection
         try{
             $this->conn = new PDO("mysql:host=".self::HOST. ";dbname=".self::DB, self::USER, self::SENHA); 
             $this->conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-            echo "Conexão feita com sucessso!" . PHP_EOL;
             return $this->conn;
         } catch(PDOException $e){
             die("ERRO: ".$e->getMessage());
         }
     }
-    
-    public function stopConn()
-    {
-        
-    }
-
     public function executar(string $query, array $params)
     {
         try{           

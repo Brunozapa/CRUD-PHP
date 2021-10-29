@@ -1,6 +1,3 @@
-<?php
-include('../app/Controller/verificaLogin.php');
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,11 +13,11 @@ include('../app/Controller/verificaLogin.php');
             <h2>Login</h2>
             <input name="email" type="text" placeholder="email" required>
             <input name="senha" type="password" placeholder="senha" required>
-            <button type="submit">login</button>
-            <span><a href="cadastro.php">cadastre-se</a></span>
+            <button type="submit">Login</button>
+            <span><a href="cadastro.php">Cadastre-se</a></span>
         </form>
         <div class="erro_msg">
-            <p>Mensagem de erro</p>
+
         </div>
     </div>
 </body>

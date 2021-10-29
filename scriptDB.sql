@@ -20,7 +20,7 @@ create table produto (
 
 insert into loja values (null, 'loja admin','admin', '1234');
 
-insert into produto values (null, 'caneta', 2.0, 'Caneta esferográfica', 1);
+insert into produto values (null, 'caneta', 200, 2.0, 1);
 
 select idLoja, nome, email, senha FROM loja WHERE email = "admin" AND senha = "1234";
 
