@@ -58,15 +58,20 @@ class Produto
     public function recuperarProdutos(int $idLoja)
     {
         try {
-            $query = "SELECT * FROM produto WHERE fkLoja = :loja";
+            $query = "SELECT idProduto as idProduto, nome as nome, quantidade as quantidade, preco as preco, fkLoja as lojaProduto FROM produto WHERE fkLoja = :loja";
             $stmt = $this->conn->setConn()->prepare($query);
             $stmt->bindParam(':loja', $idLoja, PDO::PARAM_INT);
             $stmt->execute();
 
-            $result = $stmt->fetchAll();
-            var_dump($result
-            
-            )
+            $result = array();
+            foreach ($stmt->fetchAll() as $key => $value) {
+
+                for ($i = 0; $i < (sizeof($value) / 2); $i++) {
+                    unset($value[$i]);
+                }
+                $result[$key] = $value;
+            }
+
             return $result;
         } catch (PDOException $e) {
             throw new Exception('Erro ao recuperar os dados da tabela produto');
@@ -76,16 +81,30 @@ class Produto
     public function editarProduto(string $novoValor, string $campo, int $idProduto)
     {
         try {
-            $query = "UPDATE usuario SET $campo = $novoValor WHERE idProduto = :id";
-            $stmt = $this->conn->setConn()->prepare($query);
- 
-            $stmt->execute();
+            $query = '';
+            switch ($campo) {
+                case "nome":
+                    $query = "UPDATE produto SET nome = :novoValor WHERE idProduto = :id";
+                    break;
+                case"quantidade":
+                    $query = "UPDATE produto SET quantidade = :novoValor WHERE idProduto = :id";
+                    break;
+                case"preco":
+                    $query = "UPDATE produto SET preco = :novoValor WHERE idProduto = :id";
+                    break;
+                default:
+                        throw new Exception('Campo inválido');
+                }
+                $stmt = $this->conn->setConn()->prepare($query);
+                $stmt->bindParam(':novoValor', $novoValor, PDO::PARAM_STR);
+                $stmt->bindParam(':id', $idProduto, PDO::PARAM_INT);
+                $stmt->execute();
+    
+                $result = $stmt->fetchAll();
+                header('Location: /view/home.php');
 
-            $result = $stmt->fetchAll();
-
-            return $result;
         } catch (PDOException $e) {
-            throw new Exception('Erro ao recuperar os dados da tabela produto');
+            //throw new Exception('Erro ao recuperar os dados da tabela produto');
             die("ERRO: " . $e->getMessage());
         }
     }

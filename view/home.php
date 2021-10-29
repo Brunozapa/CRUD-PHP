@@ -1,6 +1,4 @@
 <?php
-//include('../app/Controller/verificaLogin.php');
-
 
 require_once '../vendor/autoload.php';
 
@@ -15,6 +13,28 @@ $arraySessao = $sessao->recuperarSessoes();
 $instanciaProduto = new Produto();
 $arrayProdutos = $instanciaProduto->recuperarProdutos($arraySessao['id']);
 
+$lista = '';
+foreach ($arrayProdutos as $produto) {
+  $lista .= '<tr>
+              <th scope="row">
+              <a onclick=' . "deletarProduto('nome','" . $produto['idProduto'] . "')" . '><i class="fas fa-trash"></i></a>
+              </th>
+              <td>
+                <div id="table_celula" style="display: block;">' . $produto['nome'] .
+                  '<a onclick=' . "editarCampo('nome','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
+                </div>
+              </td>
+              <td>
+                <div id="table_celula" style="display: block;">' . $produto['quantidade'] .
+                  '<a onclick=' . "editarCampo('quantidade','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
+                </div>
+              </td>
+              <td>
+              <div id="table_celula" style="display: block;">' . $produto['preco'] .
+                  '<a onclick=' . "editarCampo('preco','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
+              </div>
+            </td>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,34 +62,15 @@ $arrayProdutos = $instanciaProduto->recuperarProdutos($arraySessao['id']);
       <i class="fas fa-times" onclick="fecharEdicao()"></i>
 
       <!-- Alteração de Nome -->
-      <div class="edit-popup" id="edit_nome_popup" style="display: none;">
-        <form action="../app//Controller/Produto//editarProduto.php" method="post">
-          <h4>Novo nome do produto</h4>
-          <input type="text" name="nomeProduto" required>
+      <div class="edit-popup" id="edit_popup">
+        <form action="/app//Controller///Produto///editaProduto.php" method="post">
+          <h4 id="titulo_edit_popup">Novo nome do produto</h4>
+          <input type="text" id="novo_valor" name="novoValor" required>
           <button class="small-red-btn" type="submit">Alterar</button>
         </form>
       </div>
 
-      <!-- Alteração da quantidade em estoque -->
-      <div class="edit-popup" id="edit_estoque_popup" style="display: none;">
-        <form action="../app//Controller/Produto//editarProduto.php" method="post">
-          <h4>Nova quantidade em estoque do produto</h4>
-          <input type="number" name="estoqueProduto" required>
-          <button class="small-red-btn" type="submit">Alterar</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Alteração do preço -->
-    <div class="edit-popup" id="edit_preco_popup" style="display: none;">
-      <form action="../app//Controller/Produto//editarProduto.php" method="post">
-        <h4>Novo preço do produto</h4>
-        <input type="text" name="precoProduto" required>
-        <button class="small-red-btn" type="submit">Alterar</button>
-      </form>
-    </div>
-
-    <div class="background-popup"></div>
+      <div class="background-popup"></div>
   </section>
   <header>
     <div class="container-header">
@@ -95,23 +96,7 @@ $arrayProdutos = $instanciaProduto->recuperarProdutos($arraySessao['id']);
             </tr>
           </thead>
           <tbody>
-
-            <?php foreach ($arrayProdutos as $produto) : ?>
-              <tr>
-                <th scope="row">
-                  <a href="../app//Controller//Produto//deletaProduto.php"><i class="fas fa-trash"></i></a>
-                </th>
-                <td>
-                  <div id="table_celula" style="display: block;"><?= $produto['nome'] ?><a onclick="editarCampo('nome')"><i class="fas fa-edit"></i></a></div>
-                </td>
-                <td>
-                  <div id="table_celula" style="display: block;"><?= $produto['quantidade'] ?><a onclick="editarCampo('quantidade')"><i class="fas fa-edit"></i></a></div>
-                </td>
-                <td>
-                  <div id="table_celula" style="display: block;"><?= $produto['preco'] ?><a onclick="editarCampo('preco')"><i class="fas fa-edit"></i></a></div>
-                </td>
-              </tr>
-            <?php endforeach; ?>
+            <?= $lista ?>
           </tbody>
         </table>
       </div>
@@ -138,33 +123,35 @@ $arrayProdutos = $instanciaProduto->recuperarProdutos($arraySessao['id']);
     container_addprod.style.display = "block";
   }
 
-  function editarCampo(tipoDoInupt) {
+  function editarCampo(tipoDoCampo, idProduto) {
     container_edicao.style.display = "block";
 
-    if (tipoDoInupt == 'nome') {
-      edit_nome_popup.style.display = "block";
-      edit_estoque_popup.style.display = "none";
-      edit_preco_popup.style.display = "none";
+    switch (tipoDoCampo) {
+      case 'cnome':
+        titulo_edit_popup.innerHTML = "Alterar o nome do produto";
+        <?php
+        ?>
+        break;
+      case 'quantidade':
+        titulo_edit_popup.innerHTML = "Alterar a quantidade em estoque";
+        novo_valor.setAttribute('type','number');
+        break;
+      case 'preco':
+        titulo_edit_popup.innerHTML = "Alterar o preço do produto";
+        novo_valor.setAttribute('type','number');
+        novo_valor.setAttribute('step','0.01');
+        break;
     }
 
-    if (tipoDoInupt == 'quantidade') {
-      edit_estoque_popup.style.display = "block";
-      edit_nome_popup.style.display = "none";
-      edit_preco_popup.style.display = "none";
-    }
-    if (tipoDoInupt == 'preco') {
-      edit_preco_popup.style.display = "block";
-      edit_nome_popup.style.display = "none";
-      edit_estoque_popup.style.display = "none";
-    }
-
+    document.cookie = `idParaAlteracao=${idProduto}; expires=2022 12:00:00 UTC; path=/`;
+    document.cookie = `campoParaAlteracao=${tipoDoCampo}; expires=2022 12:00:00 UTC; path=/`;
   }
 
   function fecharEdicao() {
-    edit_nome_popup.style.display = "none";
-    edit_estoque_popup.style.display = "none";
-    edit_preco_popup.style.display = "none";
     container_edicao.style.display = "none";
+  }
 
+  function deletarProduto(idProduto) {
+    document.cookie = `idParaAlteracao=${idProduto}; expires=2022 12:00:00 UTC; path=/`;
   }
 </script>
