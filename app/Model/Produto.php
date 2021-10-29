@@ -32,7 +32,7 @@ class Produto
             $stmt->bindParam(':preco', $params['preco'], PDO::PARAM_STR);
             $stmt->bindParam(':loja', $fkLoja, PDO::PARAM_INT);
             $stmt->execute();
-            header('Location: ../../view/home.php');
+            header('Location: ../../../view/home.php');
         } catch (PDOException $e) {
             throw new Exception('Erro ao tentar adicionar produto');
             die("ERRO: " . $e->getMessage());
@@ -61,6 +61,24 @@ class Produto
             $query = "SELECT * FROM produto WHERE fkLoja = :loja";
             $stmt = $this->conn->setConn()->prepare($query);
             $stmt->bindParam(':loja', $idLoja, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $result = $stmt->fetchAll();
+            var_dump($result
+            
+            )
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception('Erro ao recuperar os dados da tabela produto');
+            die("ERRO: " . $e->getMessage());
+        }
+    }
+    public function editarProduto(string $novoValor, string $campo, int $idProduto)
+    {
+        try {
+            $query = "UPDATE usuario SET $campo = $novoValor WHERE idProduto = :id";
+            $stmt = $this->conn->setConn()->prepare($query);
+ 
             $stmt->execute();
 
             $result = $stmt->fetchAll();

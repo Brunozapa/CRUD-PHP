@@ -43,7 +43,7 @@ $arrayProdutos = $instanciaProduto->recuperarProdutos($arraySessao['id']);
 
       <!-- Alteração de Nome -->
       <div class="edit-popup" id="edit_nome_popup" style="display: none;">
-        <form action="" method="post">
+        <form action="../app//Controller/Produto//editarProduto.php" method="post">
           <h4>Novo nome do produto</h4>
           <input type="text" name="nomeProduto" required>
           <button class="small-red-btn" type="submit">Alterar</button>
@@ -52,7 +52,7 @@ $arrayProdutos = $instanciaProduto->recuperarProdutos($arraySessao['id']);
 
       <!-- Alteração da quantidade em estoque -->
       <div class="edit-popup" id="edit_estoque_popup" style="display: none;">
-        <form action="" method="post">
+        <form action="../app//Controller/Produto//editarProduto.php" method="post">
           <h4>Nova quantidade em estoque do produto</h4>
           <input type="number" name="estoqueProduto" required>
           <button class="small-red-btn" type="submit">Alterar</button>
@@ -62,7 +62,7 @@ $arrayProdutos = $instanciaProduto->recuperarProdutos($arraySessao['id']);
 
     <!-- Alteração do preço -->
     <div class="edit-popup" id="edit_preco_popup" style="display: none;">
-      <form action="" method="post">
+      <form action="../app//Controller/Produto//editarProduto.php" method="post">
         <h4>Novo preço do produto</h4>
         <input type="text" name="precoProduto" required>
         <button class="small-red-btn" type="submit">Alterar</button>
@@ -98,7 +98,9 @@ $arrayProdutos = $instanciaProduto->recuperarProdutos($arraySessao['id']);
 
             <?php foreach ($arrayProdutos as $produto) : ?>
               <tr>
-                <th scope="row"><i class="fas fa-trash"></i></th>
+                <th scope="row">
+                  <a href="../app//Controller//Produto//deletaProduto.php"><i class="fas fa-trash"></i></a>
+                </th>
                 <td>
                   <div id="table_celula" style="display: block;"><?= $produto['nome'] ?><a onclick="editarCampo('nome')"><i class="fas fa-edit"></i></a></div>
                 </td>

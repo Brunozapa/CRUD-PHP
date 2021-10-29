@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-require '../../vendor/autoload.php';
+require '../../../vendor/autoload.php';
 
 use App\Model\Produto;
+use App\Controller\SessionController;
 
 $instanciaSessao = new SessionController();
 $sessao = $instanciaSessao->recuperarSessoes();
