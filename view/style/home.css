@@ -91,7 +91,9 @@ td input {
     margin: auto;
     width: 100%;
 }
-
+.container-addprod h4 {
+    margin-bottom: 20px;
+}
 .container-addprod input {
     margin-bottom: 10px;
     margin-right: 10px;
@@ -103,12 +105,22 @@ td input {
     margin-bottom: 10px;
     height: 30px;
     background-color: crimson;
+    width: 75px;
     color: whitesmoke;
     border: none;
     font-size: 15px;
     font-weight: 500;
 }
-
+.small-white-btn {
+    margin-bottom: 10px;
+    height: 30px;
+    width: 75px;
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(211, 211, 211);
+    font-size: 15px;
+    font-weight: 500;
+}
 .container-addprod span {
     float: right;
 }

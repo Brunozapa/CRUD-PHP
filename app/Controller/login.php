@@ -21,3 +21,4 @@ if (empty($resultadoDaConsulta)) {
 }
 $sessao = new SessionController();
 $sessao->login($resultadoDaConsulta);
+

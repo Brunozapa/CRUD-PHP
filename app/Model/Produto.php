@@ -34,24 +34,23 @@ class Produto
             $stmt->execute();
             header('Location: ../../../view/home.php');
         } catch (PDOException $e) {
-            throw new Exception('Erro ao tentar adicionar produto');
             die("ERRO: " . $e->getMessage());
         }
     }
-    public function deletarProduto(int $idProduto)
+    public function deletarProduto(string $idProduto)
     {
+        
         try {
             $query = "DELETE FROM produto WHERE idProduto = :id";
             $stmt = $this->conn->setConn()->prepare($query);
-            $stmt->bindParam(':id', $idProduto, PDO::PARAM_INT);
+            $stmt->bindParam(':id', intval($idProduto), PDO::PARAM_INT);
+            $stmt->execute();
+            header('Location: /view/home.php');
 
-            if ($stmt->execute()) {
-                die("deletou!");
-            }
+            throw new Exception('Falha ao deletar o produto');
+            
 
-            die("não deletou");
         } catch (PDOException $e) {
-            throw new Exception('Erro ao deletar tentar deletar o produto');
             die("ERRO: " . $e->getMessage());
         }
     }
@@ -74,7 +73,6 @@ class Produto
 
             return $result;
         } catch (PDOException $e) {
-            throw new Exception('Erro ao recuperar os dados da tabela produto');
             die("ERRO: " . $e->getMessage());
         }
     }
@@ -100,11 +98,9 @@ class Produto
                 $stmt->bindParam(':id', $idProduto, PDO::PARAM_INT);
                 $stmt->execute();
     
-                $result = $stmt->fetchAll();
                 header('Location: /view/home.php');
 
         } catch (PDOException $e) {
-            //throw new Exception('Erro ao recuperar os dados da tabela produto');
             die("ERRO: " . $e->getMessage());
         }
     }

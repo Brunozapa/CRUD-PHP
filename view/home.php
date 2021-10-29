@@ -17,24 +17,26 @@ $lista = '';
 foreach ($arrayProdutos as $produto) {
   $lista .= '<tr>
               <th scope="row">
-              <a onclick=' . "deletarProduto('nome','" . $produto['idProduto'] . "')" . '><i class="fas fa-trash"></i></a>
+              <a onclick=' . "deletarProduto('" . $produto['idProduto'] . "')" . '><i class="fas fa-trash"></i></a>
               </th>
               <td>
                 <div id="table_celula" style="display: block;">' . $produto['nome'] .
-                  '<a onclick=' . "editarCampo('nome','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
+    '<a onclick=' . "editarCampo('nome','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
                 </div>
               </td>
               <td>
                 <div id="table_celula" style="display: block;">' . $produto['quantidade'] .
-                  '<a onclick=' . "editarCampo('quantidade','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
+    '<a onclick=' . "editarCampo('quantidade','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
                 </div>
               </td>
               <td>
               <div id="table_celula" style="display: block;">' . $produto['preco'] .
-                  '<a onclick=' . "editarCampo('preco','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
+    '<a onclick=' . "editarCampo('preco','" . $produto['idProduto'] . "')" . '><i class="fas fa-edit"></i></a>
               </div>
             </td>';
 }
+
+$lista != '' ? $lista : $lista = '<td colspan=4 style="text-align: center">Nenhum produto encontrado</td>' 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +64,7 @@ foreach ($arrayProdutos as $produto) {
       <i class="fas fa-times" onclick="fecharEdicao()"></i>
 
       <!-- Alteração de Nome -->
-      <div class="edit-popup" id="edit_popup">
+      <div class="edit-popup" id="alteracao_popup" style="display: none;">
         <form action="/app//Controller///Produto///editaProduto.php" method="post">
           <h4 id="titulo_edit_popup">Novo nome do produto</h4>
           <input type="text" id="novo_valor" name="novoValor" required>
@@ -70,12 +72,23 @@ foreach ($arrayProdutos as $produto) {
         </form>
       </div>
 
-      <div class="background-popup"></div>
+      <!-- Deletar item -->
+      <div class="edit-popup" id="delecao_popup" style="display: none;">
+        <form action="/app//Controller///Produto///deletaProduto.php" method="post">
+          <h4 id="titulo_edit_popup">Deseja deletar esse produto?</h4>
+          <button class="small-red-btn" type="submit" name="deletar">Sim</button>
+        </form>
+        <button class="small-white-btn" onclick="fecharDelecao()">Não</button>
+      </div>
+
+      <div class="background-popup">
+
+      </div>
   </section>
   <header>
     <div class="container-header">
       <div class="container-title">
-        Olá <?= $arraySessao['nome'] ?>, sejam bem-vindos!
+        Olá <?=$arraySessao['nome']?> , sejam bem-vindos!
       </div>
       <a href="/app//Controller//logout.php">
         <div class="header-section">Sair </div>
@@ -125,7 +138,7 @@ foreach ($arrayProdutos as $produto) {
 
   function editarCampo(tipoDoCampo, idProduto) {
     container_edicao.style.display = "block";
-
+    alteracao_popup.style.display = "block";
     switch (tipoDoCampo) {
       case 'cnome':
         titulo_edit_popup.innerHTML = "Alterar o nome do produto";
@@ -134,12 +147,12 @@ foreach ($arrayProdutos as $produto) {
         break;
       case 'quantidade':
         titulo_edit_popup.innerHTML = "Alterar a quantidade em estoque";
-        novo_valor.setAttribute('type','number');
+        novo_valor.setAttribute('type', 'number');
         break;
       case 'preco':
         titulo_edit_popup.innerHTML = "Alterar o preço do produto";
-        novo_valor.setAttribute('type','number');
-        novo_valor.setAttribute('step','0.01');
+        novo_valor.setAttribute('type', 'number');
+        novo_valor.setAttribute('step', '0.01');
         break;
     }
 
@@ -149,9 +162,21 @@ foreach ($arrayProdutos as $produto) {
 
   function fecharEdicao() {
     container_edicao.style.display = "none";
+    alteracao_popup.style.display = "none";
+    delecao_popup.style.display = "block";
+
   }
 
   function deletarProduto(idProduto) {
+    container_edicao.style.display = "block";
+    delecao_popup.style.display = "block";
     document.cookie = `idParaAlteracao=${idProduto}; expires=2022 12:00:00 UTC; path=/`;
+  }
+
+  function fecharDelecao() {
+    container_edicao.style.display = "none";
+    delecao_popup.style.display = "none";
+    alteracao_popup.style.display = "none";
+
   }
 </script>

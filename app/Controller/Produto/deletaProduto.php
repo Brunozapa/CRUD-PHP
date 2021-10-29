@@ -11,4 +11,5 @@ $instanciaSessao = new SessionController();
 $sessao = $instanciaSessao->recuperarSessoes();
 
 $produto = new Produto();
-$produto->deletarProduto($sessao['id']);
+
+$produto->deletarProduto($_COOKIE['idParaAlteracao']);

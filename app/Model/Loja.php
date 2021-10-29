@@ -46,10 +46,9 @@ class Loja
             $stmt = $this->conn->setConn()->prepare($query);
             $stmt->bindParam(":email", $paramAuxiliar['email'], PDO::PARAM_STR);
             $stmt->bindParam(":senha", $paramAuxiliar['senha'], PDO::PARAM_STR);
-            $stmt->execute();
-
-            if ($stmt->rowCount() > 0) {
-                die("já existe esse usuario");
+            $result = $stmt->fetchAll();
+            if (empty($result)) {
+                die("Esse usuario já existe!");
             }
 
             $query = "INSERT INTO loja VALUES (NULL,:nome,:email,:senha)";
@@ -60,11 +59,11 @@ class Loja
 
             if ($stmt->execute()) {
                 echo "execute";
-                header('Location: ../../view/login.php'); die();
+                header('Location: ../../view/login.php');
+                die();
             }
 
             header('Location: ../../view/cadastro.php');
-            
         } catch (PDOException $e) {
             die('ERRO: ' . $e->getMessage());
         }

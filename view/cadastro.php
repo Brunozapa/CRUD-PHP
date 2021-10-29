@@ -15,7 +15,7 @@
         <form action="/app/Controller/cadastro.php" method="post">
             <h3>Cadastro</h3>
             <input name="nome" type="text" placeholder="nome">
-            <input name="email" type="text" placeholder="email">
+            <input name="email" type="email" placeholder="email">
             <input name="senha" type="password" placeholder="senha">
             <button type="submit">Cadastrar Loja</button>
         </form>
