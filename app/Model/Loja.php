@@ -46,8 +46,10 @@ class Loja
             $stmt = $this->conn->setConn()->prepare($query);
             $stmt->bindParam(":email", $paramAuxiliar['email'], PDO::PARAM_STR);
             $stmt->bindParam(":senha", $paramAuxiliar['senha'], PDO::PARAM_STR);
+            $stmt->execute();
             $result = $stmt->fetchAll();
-            if (empty($result)) {
+            var_dump($result);
+            if (!empty($result)) {
                 die("Esse usuario já existe!");
             }
 
